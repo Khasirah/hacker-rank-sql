@@ -1,5 +1,4 @@
 --Problem Statement
-
 /*
 Given a table STATION that holds data for five fields namely ID, CITY, STATE, NORTHERN LATITUDE and WESTERN LONGITUDE.
 +-------------+------------+
@@ -12,9 +11,24 @@ Given a table STATION that holds data for five fields namely ID, CITY, STATE, NO
 | LONG_W      | NUMERIC    |
 +-------------+------------+
  
-Let NUM be no. of cities and NUMunique be no. of unique cities, then write a query to print the value of NUM - NUMunique
+Write a query to print the list of CITY that start with vowels in lexicographical order. Do not print duplicates.
 */
 
--- Solution
-SELECT COUNT(CITY) - COUNT(DISTINCT CITY)
-FROM STATION;
+--Solution
+
+WITH city_with_vowel
+AS
+(
+    SELECT CITY, SUBSTRING(CITY,1,1) AS vowel
+    FROM STATION
+)
+
+SELECT CITY
+FROM city_with_vowel
+WHERE vowel IN ("A","I","U","E","O")
+ORDER BY CITY;
+
+-- Solution 2
+SELECT CITY
+FROM STATION
+WHERE CITY LIKE '[AIUEO]%';
